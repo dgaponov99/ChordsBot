@@ -1,24 +1,25 @@
 import os
-
 import telebot
+
+import bot
 
 # from flask import Flask, request
 
 TOKEN = os.environ.get('TOKEN')
-
-bot = telebot.TeleBot(TOKEN)
+server_bot = telebot.TeleBot(TOKEN)
 
 
 # server = Flask(__name__)
 
 
-@bot.message_handler(commands=['start'])
+@server_bot.message_handler(commands=['start'])
 def start(message):
-    pass
+    bot.greeting(message.chat.id, message.from_user.first_name)
+    bot.add_new_user(message.chat.id, message.from_user.first_name)
 
 
-@bot.message_handler(func=lambda message: True, content_types=['text'])
-def echo_message(message):
+@server_bot.message_handler(func=lambda message: True, content_types=['text'])
+def text_message(message):
     pass
 
 
@@ -39,4 +40,4 @@ def echo_message(message):
 #     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 if __name__ == "__main__":
-    bot.polling()
+    server_bot.polling()
