@@ -20,7 +20,7 @@ class Database:
             sys.exit()
 
     def add_doc(self, doc):
-        if type(self.db.find_one({'id': doc['_id']})) is None:
+        if self.db.find_one({'_id': doc['_id']}) is None:
             self.db.save(doc)
             return True
         return False
