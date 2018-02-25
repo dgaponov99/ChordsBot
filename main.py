@@ -2,6 +2,7 @@ import os
 import telebot
 
 import bot
+import config
 
 # from flask import Flask, request
 
@@ -16,6 +17,11 @@ server_bot = telebot.TeleBot(TOKEN)
 def start(message):
     bot.greeting(message.chat.id, message.from_user.first_name)
     bot.add_new_user(message.chat.id, message.from_user.first_name)
+
+
+@server_bot.message_handler(commands=config.INSTRUMENTS)
+def mode(message):
+    bot.change_mode(message.chat.id, message.text)
 
 
 @server_bot.message_handler(func=lambda message: True, content_types=['text'])

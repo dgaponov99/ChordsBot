@@ -24,5 +24,19 @@ def add_new_user(chat_id, first_name):
         print('пользователь добавлен')
 
 
+def change_mode(chat_id, mode):
+    mode = mode_validate(mode)
+    users_database.change_doc(users_docs.user(chat_id),
+                              users_docs.user_mode(mode))
+    bot.send_message(chat_id, string_values.change_mode.format(mode.title()))
+
+
+def mode_validate(mode):
+    space_index = mode.find(' ')
+    if space_index != -1:
+        return mode[1:space_index]
+    return mode[1:]
+
+
 def message_to_admin(about):
     pass
