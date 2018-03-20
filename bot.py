@@ -1,16 +1,16 @@
-import telebot
 import os
 
-import config
+import telebot
 
 from res import string_values
-from databases import users_docs
 from databases.db import Database
+from databases import db_config
+from databases.docs import users_docs
 
 TOKEN = os.environ.get('TOKEN')
 bot = telebot.TeleBot(TOKEN)
 
-users_database = Database(config.USERS)
+users_database = Database(db_config.USERS)
 
 
 def greeting(chat_id, first_name):
