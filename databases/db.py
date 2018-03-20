@@ -3,12 +3,12 @@ import sys
 
 from pymongo import MongoClient
 
-import config
+from databases import db_config
 
 
 class Database:
-    DATABASE = config.DATABASE
-    LINK = config.MONGO_LINK.format(os.environ.get('LOGIN'), os.environ.get('PASSWORD'))
+    DATABASE = db_config.DATABASE
+    LINK = db_config.MONGO_LINK.format(os.environ.get('LOGIN'), os.environ.get('PASSWORD'))
 
     def __init__(self, collection):
         from pymongo.errors import ConnectionFailure
