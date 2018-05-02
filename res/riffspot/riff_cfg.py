@@ -1,2 +1,2 @@
-URL = 'http://riffspot.com/chords/{instrument}/root/{chord}/'
-
+URL = 'http://riffspot.com/chords/{}/{}/'
+EMPTY_PAGE = 'Page Not Found'
