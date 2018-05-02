@@ -26,7 +26,7 @@ def mode(message):
 
 @server_bot.message_handler(func=lambda message: True, content_types=['text'])
 def text_message(message):
-    pass
+    bot.chord_processing(message)
 
 
 # @server.route('/' + TOKEN, methods=['POST'])
