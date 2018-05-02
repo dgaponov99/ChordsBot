@@ -14,13 +14,14 @@ def get_chord_urls(instrument, chord):
             return urls_list
 
     chord = chord_validator.validation_chord(chord)
+    print(chord)
     if chord is None:
         return None
 
     url_of_page = multi_parser.create_url_of_chord(instrument, chord)
-    urls_list = multi_parser.get_images(url_of_page)
+    urls_list = multi_parser.get_images(instrument, url_of_page)
     return urls_list
 
 
-def add_chord(instrument, chord):
-    images.add_chord(instrument, chord)
+def add_chord(instrument, chord, files_id):
+    images.add_chord(instrument, chord, files_id)
