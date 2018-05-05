@@ -62,7 +62,7 @@ def send_fail(user_id):
 
 
 def send_processing(user_id):
-    bot.send_message(user_id, 'Обновление базы...')  # Исправить
+    return bot.send_message(user_id, 'Обновление базы...')  # Исправить
 
 
 def chord_processing(message):
@@ -79,16 +79,21 @@ def chord_processing(message):
         send_images(user_id, image_list)
         return True
 
-    send_processing(user_id)
+    msg_pr = send_processing(user_id)
 
     urls_list = chords.get_chord_urls(mode, chord)
     if urls_list is not None:
         files_id = send_images(user_id, urls_list)
         chords.add_chord(mode, chord, files_id)
+        del_message(msg_pr)
         return True
-
+    del_message(msg_pr)
     send_fail(user_id)
     return False
+
+
+def del_message(msg):
+    bot.delete_message(msg.chat.id, msg.message_id)
 
 
 def split_of_list(l):
@@ -104,7 +109,7 @@ def split_of_list(l):
     return new_l
 
 
-def send_error(user_id):
+def send_error(user_id):  # исправить
     pass
 
 
@@ -124,12 +129,18 @@ def send_images(user_id, images_list):
             except Exception:
                 send_error(user_id)
         else:
-            img = requests.get(images[0])
-            try:
-                file = bot.send_photo(user_id, img.content)
-                files_id.append(file.photo[0].file_id)
-            except Exception:
-                send_error(user_id)
+            if images[0].startswith('http'):
+                img = requests.get(images[0])
+                try:
+                    file = bot.send_photo(user_id, img.content)
+                    files_id.append(file.photo[0].file_id)
+                except Exception:
+                    send_error(user_id)
+            else:
+                try:
+                    bot.send_photo(user_id, images[0])
+                except Exception:
+                    send_error(user_id)
 
     if len(files_id) == 0:
         return None
