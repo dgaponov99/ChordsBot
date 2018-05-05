@@ -52,7 +52,7 @@ chords_type = {
     '': '-major',
     'mmaj7': 'mmaj7',
     'minmaj7': 'mmaj7',
-    ' minor': ' Minor',
+    ' minor': '-minor',
     'm': '-minor',
     'min': '-minor',
     'mi': '-minor',
