@@ -14,7 +14,6 @@ def get_chord_urls(instrument, chord):
             return urls_list
 
     chord = chord_validator.validation_chord(chord)
-    print(chord)
     if chord is None:
         return None
 
